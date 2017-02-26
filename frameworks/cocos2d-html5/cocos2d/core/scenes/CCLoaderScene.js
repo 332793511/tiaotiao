@@ -48,26 +48,26 @@ cc.LoaderScene = cc.Scene.extend({
         var logoHeight = 200;
 
         // bg
-        var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
-        self.addChild(bgLayer, 0);
-
-        //image move to CCSceneFile.js
-        var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
-        if(cc._loaderImage){
-            //loading logo
-            cc.loader.loadImg(cc._loaderImage, {isCrossOrigin : false }, function(err, img){
-                logoWidth = img.width;
-                logoHeight = img.height;
-                self._initStage(img, cc.visibleRect.center);
-            });
-            fontSize = 14;
-            lblHeight = -logoHeight / 2 - 10;
-        }
-        //loading percent
-        var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
-        label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
-        label.setColor(cc.color(180, 180, 180));
-        bgLayer.addChild(this._label, 10);
+        // var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
+        // self.addChild(bgLayer, 0);
+        //
+        // //image move to CCSceneFile.js
+        // var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
+        // if(cc._loaderImage){
+        //     //loading logo
+        //     cc.loader.loadImg(cc._loaderImage, {isCrossOrigin : false }, function(err, img){
+        //         logoWidth = img.width;
+        //         logoHeight = img.height;
+        //         self._initStage(img, cc.visibleRect.center);
+        //     });
+        //     fontSize = 14;
+        //     lblHeight = -logoHeight / 2 - 10;
+        // }
+        // //loading percent
+        // var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
+        // label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
+        // label.setColor(cc.color(180, 180, 180));
+        // bgLayer.addChild(this._label, 10);
         return true;
     },
 
@@ -95,8 +95,9 @@ cc.LoaderScene = cc.Scene.extend({
      */
     onExit: function () {
         cc.Node.prototype.onExit.call(this);
-        var tmpStr = "Loading... 0%";
-        this._label.setString(tmpStr);
+        // var tmpStr = "Loading... 0%";
+        // this._label.setString(tmpStr);
+
     },
 
     /**
@@ -117,15 +118,24 @@ cc.LoaderScene = cc.Scene.extend({
         var self = this;
         self.unschedule(self._startLoading);
         var res = self.resources;
+        var lp = document.getElementById('loading-progressing');
         cc.loader.load(res,
             function (result, count, loadedCount) {
                 var percent = (loadedCount / count * 100) | 0;
                 percent = Math.min(percent, 100);
-                self._label.setString("Loading... " + percent + "%");
+                if(lp){
+                  lp.style.width = (6.66667 * percent/100) + "rem";
+                }
+
+                // self._label.setString("Loading... " + percent + "%");
             }, function () {
-                if (self.cb)
-                    self.cb.call(self.target);
-            });
+                if (self.cb){
+                  self.cb.call(self.target);
+                }
+
+
+            }
+        );
     },
 
     _updateTransform: function(){
