@@ -158,4 +158,4 @@ cc.screen = /** @lends cc.screen# */{
         touchTarget.addEventListener(this._touchEvent, callback);
     }
 };
-cc.screen.init();
+// cc.screen.init();
