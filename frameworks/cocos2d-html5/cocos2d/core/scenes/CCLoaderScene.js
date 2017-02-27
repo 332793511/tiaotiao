@@ -1,73 +1,13 @@
-/****************************************************************************
- Copyright (c) 2011-2012 cocos2d-x.org
- Copyright (c) 2013-2014 Chukong Technologies Inc.
-
- http://www.cocos2d-x.org
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
-/**
- * <p>cc.LoaderScene is a scene that you can load it when you loading files</p>
- * <p>cc.LoaderScene can present thedownload progress </p>
- * @class
- * @extends cc.Scene
- * @example
- * var lc = new cc.LoaderScene();
- */
 cc.LoaderScene = cc.Scene.extend({
     _interval : null,
     _label : null,
     _className:"LoaderScene",
     cb: null,
     target: null,
-    /**
-     * Contructor of cc.LoaderScene
-     * @returns {boolean}
-     */
+
     init : function(){
         var self = this;
 
-        //logo
-        var logoWidth = 160;
-        var logoHeight = 200;
-
-        // bg
-        // var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
-        // self.addChild(bgLayer, 0);
-        //
-        // //image move to CCSceneFile.js
-        // var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
-        // if(cc._loaderImage){
-        //     //loading logo
-        //     cc.loader.loadImg(cc._loaderImage, {isCrossOrigin : false }, function(err, img){
-        //         logoWidth = img.width;
-        //         logoHeight = img.height;
-        //         self._initStage(img, cc.visibleRect.center);
-        //     });
-        //     fontSize = 14;
-        //     lblHeight = -logoHeight / 2 - 10;
-        // }
-        // //loading percent
-        // var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
-        // label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
-        // label.setColor(cc.color(180, 180, 180));
-        // bgLayer.addChild(this._label, 10);
         return true;
     },
 
@@ -97,7 +37,13 @@ cc.LoaderScene = cc.Scene.extend({
         cc.Node.prototype.onExit.call(this);
         // var tmpStr = "Loading... 0%";
         // this._label.setString(tmpStr);
-
+        var ld = document.getElementById('loading');
+        if(ld){
+          ld.style.opacity = 0;
+          setTimeout(function() {
+            ld.parentNode.removeChild(ld);
+          }, 500);
+        }
     },
 
     /**
@@ -126,14 +72,14 @@ cc.LoaderScene = cc.Scene.extend({
                 if(lp){
                   lp.style.width = (6.66667 * percent/100) + "rem";
                 }
-
                 // self._label.setString("Loading... " + percent + "%");
             }, function () {
                 if (self.cb){
                   self.cb.call(self.target);
                 }
-
-
+                if(lp){
+                  lp.style.width = "6.66667rem";
+                }
             }
         );
     },
@@ -145,19 +91,7 @@ cc.LoaderScene = cc.Scene.extend({
         this._logo._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
     }
 });
-/**
- * <p>cc.LoaderScene.preload can present a loaderScene with download progress.</p>
- * <p>when all the resource are downloaded it will invoke call function</p>
- * @param resources
- * @param cb
- * @param target
- * @returns {cc.LoaderScene|*}
- * @example
- * //Example
- * cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(new HelloWorldScene());
-    }, this);
- */
+
 cc.LoaderScene.preload = function(resources, cb, target){
     var _cc = cc;
     if(!_cc.loaderScene) {
