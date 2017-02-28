@@ -20,6 +20,13 @@ var PlayLayer = cc.Layer.extend({
               x: size.width / 2,
               y: size.height/ 2
           });
+
+          var earthAction = new cc.RotateBy(6, -360);
+          // this.earthSprite.runAction(earthAction);
+          // var earthAnimation = new cc.Animation();
+          // earthAnimation.addSpriteFrame(earthSprite);
+          // var earthAction = cc.animate(earthAnimation);
+          this.earthSprite.runAction(cc.repeatForever(earthAction))
           this.addChild(this.earthSprite, 1);
 
 
@@ -29,22 +36,21 @@ var PlayLayer = cc.Layer.extend({
               y: (size.height / 2) + 312
           });
 
-          var animation = new cc.Animation();                             
+          var animation = new cc.Animation();
           for (var i = 1; i <= 2; i++) {
-
             var  spriteFrame = new cc.SpriteFrame(res.Yoyo_run, cc.rect(106*i, 0, 106, 146));
-            animation.addSpriteFrame(spriteFrame);                         
-          }  
+            animation.addSpriteFrame(spriteFrame);
+          }
 
-          animation.setDelayPerUnit(0.15);           //设置两个帧播放时间        
-          animation.setRestoreOriginalFrame(true);    //动画执行后还原初始状态     
+          animation.setDelayPerUnit(0.15);           //设置两个帧播放时间
+          animation.setRestoreOriginalFrame(true);    //动画执行后还原初始状态
 
-          var action = cc.animate(animation);                             
+          var action = cc.animate(animation);
           this.yoyoSprite.runAction(cc.repeatForever(action))
 
           this.addChild(this.yoyoSprite, 1);
 
-          
+
 
           return true;
       }
