@@ -23,24 +23,38 @@ var StartLayer = cc.Layer.extend({
         });
         this.addChild(this.earthSprite, 1);
 
-        // var startItem = new cc.MenuItemImage(res.Sprite, res.Earth, function () {
-        //   cc.log("Menu is clicked!");
-        //   // var trans = new cc.TransitionPageTurn(1, new PlayScene(), false);
-        //   cc.director.runScene(new PlayScene());
-        // }, this);
-        // startItem.attr({
-        //   x: size.width/2,
-        //   y: size.height/2,
-        //   anchorX: 0.5,
-        //   anchorY: 0.5,
-        //   // width: 380,
-        //   // height: 96
-        // });
 
-        // var menu = new cc.Menu(startItem);
-        // menu.x = 0;
-        // menu.y = 0;
-        // this.addChild(menu, 1);
+        this.yoyoSprite = new cc.Sprite(res.Yoyo_run, cc.rect(0,0, 106, 146));
+        this.yoyoSprite.attr({
+            x: size.width / 2,
+            y: (size.height / 2) + 312
+        });
+
+        this.addChild(this.yoyoSprite, 1);
+
+
+        // var sprite = new cc.Sprite(res.Sprite);
+        // var action = cc. scaleBy(0.5, 0.5);
+        // sprite.runAction(action);
+        // this.addChild(sprite, 1);
+
+        var sprite = new cc.Sprite(res.Sprite, cc.rect(1102,0, 380, 96));
+
+        var startItem = new cc.MenuItemSprite(sprite, null, function () {
+          cc.log("Menu is clicked!");
+          // var trans = new cc.TransitionPageTurn(1, new PlayScene(), false);
+          cc.director.runScene(new PlayScene());
+        }, this);
+        startItem.attr({
+          x: size.width/2,
+          y: 187,
+          anchorX: 0.5,
+          anchorY: 0.5,
+        });
+        var menu = new cc.Menu(startItem);
+        menu.x = 0;
+        menu.y = 0;
+        this.addChild(menu, 1);
 
         return true;
     }

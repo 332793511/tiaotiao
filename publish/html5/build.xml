@@ -171,6 +171,7 @@
             <sources dir="${basedir}">
                 <file name="src/resource.js"/>
                 <file name="src/StartScene.js"/>
+                <file name="src/PlayScene.js"/>
                 <file name="main.js"/>
 
             </sources>
