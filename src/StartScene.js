@@ -1,33 +1,41 @@
 var StartLayer = cc.Layer.extend({
+
     bgSprite: null,
+
     earthSprite: null,
+
+    yoyoSprite: null,
+
     ctor:function () {
+
         this._super();
 
-        var size = cc.winSize;
-
         this.bgSprite = new cc.Sprite(res.BackGround_png);
+
         this.bgSprite.attr({
-            x: size.width / 2,
-            y: size.height,
+            x: WIN_SIZE.width / 2,
+            y: WIN_SIZE.height,
             anchorY: 1
         });
+
         this.addChild(this.bgSprite, 0);
 
 
-
         this.earthSprite = new cc.Sprite(res.Earth);
+
         this.earthSprite.attr({
-            x: size.width / 2,
-            y: size.height/ 2
+            x: WIN_SIZE.width / 2,
+            y: WIN_SIZE.height/ 2
         });
+
         this.addChild(this.earthSprite, 1);
 
 
         this.yoyoSprite = new cc.Sprite(res.Yoyo_run, cc.rect(0,0, 106, 146));
+
         this.yoyoSprite.attr({
-            x: size.width / 2,
-            y: (size.height / 2) + 312
+            x: WIN_SIZE.width / 2,
+            y: (WIN_SIZE.height / 2) + 312
         });
 
         this.addChild(this.yoyoSprite, 1);
@@ -46,7 +54,7 @@ var StartLayer = cc.Layer.extend({
           cc.director.runScene(new PlayScene());
         }, this);
         startItem.attr({
-          x: size.width/2,
+          x: WIN_SIZE.width/2,
           y: 187,
           anchorX: 0.5,
           anchorY: 0.5,

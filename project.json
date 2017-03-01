@@ -9,11 +9,14 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d"],
+    "modules" : ["cocos2d", "extensions", "external"],
 
     "jsList" : [
         "src/resource.js",
         "src/StartScene.js",
-        "src/PlayScene.js"
+        "src/PlayScene.js",
+        "src/yoyoNode.js",
+        "src/earthNode.js",
+        "src/constant.js"
     ]
 }
