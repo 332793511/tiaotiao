@@ -52,7 +52,9 @@ var StartLayer = cc.Layer.extend({
           cc.log("Menu is clicked!");
           // var trans = new cc.TransitionPageTurn(1, new PlayScene(), false);
           cc.director.runScene(new PlayScene());
+
         }, this);
+
         startItem.attr({
           x: WIN_SIZE.width/2,
           y: 187,

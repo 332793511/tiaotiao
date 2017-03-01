@@ -20,10 +20,15 @@ var PlayLayer = cc.Layer.extend({
           this.addChild(yoyoNode, 2);
 
           var earthNode = new EarthNode(function(yoyo){
+              cc.director.resume();
               yoyo.yJump();
           }, yoyoNode);
 
           this.addChild(earthNode, 1);
+
+          this.scheduleOnce(function(){
+              cc.director.pause();
+          }, .8);
 
           return true;
       }
