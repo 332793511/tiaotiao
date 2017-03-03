@@ -1,43 +1,45 @@
 var PlayLayer = cc.Layer.extend({
 
-      ctor:function () {
+    ctor:function () {
 
-          this._super();
+        this._super();
 
-          var bgSprite = new cc.Sprite(res.BackGround_png);
+        var controller = {
+          needPause: true
+        };
 
-          bgSprite.attr({
-            x: CCX,
-            y: WIN_SIZE.height,
-            anchorY: 1
-          });
+        this.addChild(new BgSprite(), 0);
 
-          this.addChild(bgSprite, 0);
+        var yoyoNode = new YoyoNode();
 
+        yoyoNode.runMyAction();
 
-          var yoyoNode = new YoyoNode();
+        this.addChild(yoyoNode, 2);
 
-          this.addChild(yoyoNode, 2);
+        var earthNode = new EarthNode(function(yoyo, controller){
+            if(controller.needPause){
+                controller.needPause = false;
+                cc.director.resume();
+            }
+            yoyo.yJump();
+        }, yoyoNode, controller);
 
-          var earthNode = new EarthNode(function(yoyo){
-              cc.director.resume();
-              yoyo.yJump();
-          }, yoyoNode);
+        earthNode.runMyAction();
 
-          this.addChild(earthNode, 1);
+        this.addChild(earthNode, 1);
 
-          this.scheduleOnce(function(){
-              cc.director.pause();
-          }, .8);
+        this.scheduleOnce(function(){
+            if(controller.needPause) cc.director.pause();
+        }, .8);
 
-          return true;
-      }
-  });
+        return true;
+    }
+});
 
-  var PlayScene = cc.Scene.extend({
-      onEnter:function () {
-          this._super();
-          var layer = new PlayLayer();
-          this.addChild(layer);
-      }
-  });
+var PlayScene = cc.Scene.extend({
+    onEnter:function () {
+        this._super();
+        var layer = new PlayLayer();
+        this.addChild(layer);
+    }
+});

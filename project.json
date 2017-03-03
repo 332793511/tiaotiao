@@ -13,10 +13,13 @@
 
     "jsList" : [
         "src/resource.js",
+        "src/constant.js",
         "src/StartScene.js",
         "src/PlayScene.js",
+        "src/bgSprite.js",
         "src/yoyoNode.js",
         "src/earthNode.js",
-        "src/constant.js"
+        "src/stoneNode.js",
+        "src/cottonNode.js"
     ]
 }

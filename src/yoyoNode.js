@@ -48,18 +48,17 @@ var YoyoNode = cc.Node.extend({
 
     this.__yoyoSeq = cc.sequence(jumpImageAction, jumpAction, CallbackJumpAction);
 
-    this.__yoyoSprite.runAction(this.__defaultActionForever);
-
     this.addChild(this.__yoyoSprite);
 
 		return true;
 
-    //把创建动作的方法一一封装到对象函数
-    //通过对象缓存池创建对象，并初始化起始位置、默认动作，达到寿命时销毁。
-    //监听yoyo的碰撞事件，取出碰撞优先数组第一个值，检测碰撞，
-    //监听碰撞优先数组第一个元素x，if x位置对应的与y轴夹角为不可能碰撞，则shift数组
+    //修改node节点为 sprite节点
 
 	},
+
+  runMyAction: function(){
+    this.__yoyoSprite.runAction(this.__defaultActionForever);
+  },
 
   yJump: function(){
     if(this.__canJump){
