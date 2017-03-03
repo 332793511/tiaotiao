@@ -9,17 +9,16 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d", "extensions", "external"],
+    "modules" : ["cocos2d"],
 
     "jsList" : [
         "src/resource.js",
         "src/constant.js",
-        "src/StartScene.js",
         "src/PlayScene.js",
-        "src/bgSprite.js",
+        "src/BgSprite.js",
         "src/yoyoNode.js",
-        "src/earthNode.js",
-        "src/stoneNode.js",
+        "src/EarthSprite.js",
+        "src/StoneSprite.js",
         "src/cottonNode.js"
     ]
 }

@@ -69,9 +69,16 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
 
+    WIN_SIZE     = cc.winSize, //窗口大小（ 格式 { width: 640, height: 1040 } ）
+  	WIN_WIDTH    = WIN_SIZE.width, //窗口宽度
+  	WIN_HEIGHT   = WIN_SIZE.height, //窗口高度
+  	CCX          = WIN_WIDTH / 2, //笛卡尔窗口中心X轴坐标
+  	CCY          = WIN_HEIGHT / 2, //笛卡尔窗口中心Y轴坐标
+  	CCDOT        = cc.p(CCX, CCY);//笛卡尔窗口中心点坐标
+
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(new StartScene());
+        cc.director.runScene(new PlayScene());
     }, this);
 };
 cc.game.run();

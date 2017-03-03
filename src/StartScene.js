@@ -6,9 +6,19 @@ var StartLayer = cc.Layer.extend({
 
         this.addChild(new BgSprite(), 0);
 
-        var earthNode = new EarthNode();
+        var earthSprite = new EarthSprite();
 
-        this.addChild(earthNode, 1);
+        this.addChild(earthSprite, 1);
+
+        var stone1 = new StoneSprite(0);
+
+        var angle = 65,
+            radian = Math.PI * angle / 180;
+
+        stone1.setPosition(CCX + Math.sin(radian)*275, CCY + Math.cos(radian)*275);
+        stone1.setRotation(angle);
+
+        this.addChild(stone1, 1);
 
         var yoyoSprite = new cc.Sprite(res.Yoyo_run, cc.rect(0,0, 106, 146));
 

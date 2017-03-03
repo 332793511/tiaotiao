@@ -1,20 +1,19 @@
 //定义地球节点
-var EarthNode = cc.Node.extend({
-
-	__earthSprite: null,
-
-	__earthRotateForever: null,
+var EarthSprite = cc.Sprite.extend({
 
 	ctor: function(){
 
-		this._super();
+		this._super(res.Earth);
 
-		var earthSprite = this.__earthSprite = new cc.Sprite(res.Earth);
+		this.setPosition(CCDOT);
 
-		earthSprite.setPosition(CCDOT);
+		// this.__earthRotateForever = cc.repeatForever(new cc.RotateBy(6, -360));
 
-		this.__earthRotateForever = cc.repeatForever(new cc.RotateBy(6, -360));
+		return true;
 
+	},
+
+	bindingClick: function(){
 		//封装外部方法
 		if(arguments.length > 0){
 			var __arguments = arguments, fn = Array.prototype.shift.call(__arguments);
@@ -34,20 +33,13 @@ var EarthNode = cc.Node.extend({
 			        if(distance < 255){
 			          cc.log('its ok');
 			          //实现外部回调函数
-			          fn.apply(this, __arguments);          
-			        } 
+			          fn.apply(this, __arguments);
+			        }
 			    }
-			}, earthSprite);
-      	}
-
-        this.addChild(earthSprite);
-
-		return true;
-
-	},
-
-	runMyAction: function(){
-		this.__earthSprite.runAction(this.__earthRotateForever);
+			}, this);
+    }else{
+			cc.log('binding fail');
+		}
 	}
 
 });
