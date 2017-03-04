@@ -23,14 +23,15 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(earthSprite, 1);
 
         var angle    = 0,
-            fixed_angle = 65,
+            fixed_angle = 70,
             r_angle  = angle + fixed_angle,
-            radian   = Math.PI * r_angle / 180;
+            radian1   = Math.PI * r_angle / 180,
+            scale1 = 1;
             // fixed_angle = angle + 40 + (Math.random() - 0.5) * 2 * 10;
 
         var stone1 = new StoneSprite(0);
 
-        stone1.setPosition(CCX + Math.sin(radian)*275, CCY + Math.cos(radian)*275);
+        stone1.setPosition(CCX + Math.sin(radian1)*231, CCY + Math.cos(radian1)*231);
         stone1.setRotation(r_angle);
 
         this.addChild(stone1, 1);
@@ -40,6 +41,8 @@ var PlayLayer = cc.Layer.extend({
         var startItem = new cc.MenuItemSprite(sprite_button_start, null, function () {
 
           cc.log("Menu is clicked!");
+
+          menu.removeFromParent();
 
           earthSprite.bindingClick(function(yoyo, controller){
               if(controller.needPause){
@@ -51,17 +54,24 @@ var PlayLayer = cc.Layer.extend({
 
           this.scheduleOnce(function(){
               if(controller.needPause) cc.director.pause();
-          }, .8);
+          }, .7);
 
           yoyoNode.runMyAction();
 
           this.schedule(function(){
               r_angle = angle + fixed_angle;
-              radian = Math.PI * r_angle / 180;
+              radian1 = Math.PI * r_angle / 180;
+              scale1 = stone1.getScale();
+              if(scale1 >= 0 && r_angle % 360 <= -20){
+                stone1.setScale(scale1 - 0.012);
+              }
+              if(scale1 <= 1 && r_angle % 360 <= -118){
+                stone1.setScale(scale1 + 0.0065);
+              }
               earthSprite.setRotation(angle);
-              stone1.setPosition(CCX + Math.sin(radian)*275, CCY + Math.cos(radian)*275);
+              stone1.setPosition(CCX + Math.sin(radian1)*231, CCY + Math.cos(radian1)*231);
               stone1.setRotation(r_angle);
-              angle -= 0.8;
+              angle -= 0.956;
               // cc.log(99);
           });
 

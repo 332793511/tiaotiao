@@ -13,6 +13,8 @@ StoneSprite = cc.Sprite.extend({
             this._super(stones[parseInt(Math.random()*2)]);
         }
 
+        this.anchorY = 0;
+
         return true;
     },
 
