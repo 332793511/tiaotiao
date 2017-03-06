@@ -12,6 +12,9 @@ var PlayLayer = cc.Layer.extend({
 
         var yoyoNode = new YoyoNode();
 
+        // yoyoNode.setPosition(CCX, CCY + 312);
+        // yoyoNode.setContentSize(cc.p(106, 146));
+
         // yoyoNode.runMyAction();
 
         this.addChild(yoyoNode, 2);
@@ -36,6 +39,10 @@ var PlayLayer = cc.Layer.extend({
 
         this.addChild(stone1, 1);
 
+        var distanceYandS1,
+            yoyoHitDot,
+            stone1HitDot;
+
         var sprite_button_start = new cc.Sprite(res.Sprite, cc.rect(1102,0, 380, 96));
 
         var startItem = new cc.MenuItemSprite(sprite_button_start, null, function () {
@@ -58,7 +65,23 @@ var PlayLayer = cc.Layer.extend({
 
           yoyoNode.runMyAction();
 
+          // var dot1 = new cc.DrawNode();
+          // dot1.drawDot(yoyoHitDot, 5, cc.color(0,0,0,255));
+          // this.addChild(dot1, 5);
+          //
+          // var dot2 = new cc.DrawNode();
+          // dot2.drawDot(cc.p(0,0), 5, cc.color(255,255,255,255));
+          // this.addChild(dot2, 5);
+
+
           this.schedule(function(){
+
+
+
+              //地球旋转
+              earthSprite.setRotation(angle);
+
+              //石头运动
               r_angle = angle + fixed_angle;
               radian1 = Math.PI * r_angle / 180;
               scale1 = stone1.getScale();
@@ -68,9 +91,21 @@ var PlayLayer = cc.Layer.extend({
               if(scale1 <= 1 && r_angle % 360 <= -118){
                 stone1.setScale(scale1 + 0.0065);
               }
-              earthSprite.setRotation(angle);
+
               stone1.setPosition(CCX + Math.sin(radian1)*231, CCY + Math.cos(radian1)*231);
               stone1.setRotation(r_angle);
+
+              //碰撞检测
+
+              stone1HitDot = {x: CCX + Math.sin(radian1)*265, y: CCY + Math.cos(radian1)*265}
+              yoyoHitDot = yoyoNode.getPosition();
+              distanceYandS1 = cc.pDistance(yoyoHitDot, stone1HitDot);
+              if(distanceYandS1 < 45 + 45){
+                cc.log("Hit!");
+                yoyoNode.runBlinkAction();
+              }
+
+
               angle -= 0.956;
               // cc.log(99);
           });

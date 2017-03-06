@@ -1,23 +1,23 @@
 //定义yoyo节点
-var YoyoNode = cc.Node.extend({
+var YoyoNode = cc.Sprite.extend({
 
   __canJump: true,
 
-  __yoyoSprite: null,
+  __canBlink: true,
 
   __yoyoSeq: null,
 
   __defaultActionForever: null,
 
+  __blinkAction: null,
+
 	ctor: function(){
 
-    this._super();
+    this._super(res.Yoyo_run, cc.rect(0,0, 106, 146));
 
     var __self = this;
 
-    this.__yoyoSprite = new cc.Sprite(res.Yoyo_run, cc.rect(0,0, 106, 146));
-
-    this.__yoyoSprite.setPosition(CCX, CCY + 312);
+    this.setPosition(CCX, CCY + 312);
 
     var defultAni  = new cc.Animation();
 
@@ -42,13 +42,13 @@ var YoyoNode = cc.Node.extend({
     var jumpAction = cc.jumpBy(.8, cc.p(0, 0), 120, 1);
 
     var CallbackJumpAction = cc.callFunc(function(){
-        __self.__yoyoSprite.runAction(__self.__defaultActionForever);
+        __self.runAction(__self.__defaultActionForever);
         __self.__canJump = true;
     });
 
-    this.__yoyoSeq = cc.sequence(jumpImageAction, jumpAction, CallbackJumpAction);
+    this.__blinkAction = new cc.Blink(.5, 8);
 
-    this.addChild(this.__yoyoSprite);
+    this.__yoyoSeq = cc.sequence(jumpImageAction, jumpAction, CallbackJumpAction);
 
 		return true;
 
@@ -57,14 +57,26 @@ var YoyoNode = cc.Node.extend({
 	},
 
   runMyAction: function(){
-    this.__yoyoSprite.runAction(this.__defaultActionForever);
+    this.runAction(this.__defaultActionForever);
+  },
+
+  runBlinkAction: function(){
+    var __self = this;
+    if(this.__canBlink){
+      this.__canBlink = false;
+      this.runAction(this.__blinkAction);
+      setTimeout(function () {
+        __self.__canBlink = true;
+      }, 600);
+    }
+
   },
 
   yJump: function(){
     if(this.__canJump){
       this.__canJump = false;
-      this.__yoyoSprite.stopAction(this.__defaultActionForever);
-      this.__yoyoSprite.runAction(this.__yoyoSeq);
+      this.stopAction(this.__defaultActionForever);
+      this.runAction(this.__yoyoSeq);
     }
   }
 
