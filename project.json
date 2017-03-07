@@ -16,9 +16,9 @@
         "src/constant.js",
         "src/PlayScene.js",
         "src/BgSprite.js",
-        "src/yoyoNode.js",
+        "src/YoyoSprite.js",
         "src/EarthSprite.js",
         "src/StoneSprite.js",
-        "src/cottonNode.js"
+        "src/CottonSprite.js"
     ]
 }

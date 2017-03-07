@@ -10,14 +10,14 @@ var PlayLayer = cc.Layer.extend({
 
         this.addChild(new BgSprite(), 0);
 
-        var yoyoNode = new YoyoNode();
+        var yoyoSprite = new YoyoSprite();
 
         // yoyoNode.setPosition(CCX, CCY + 312);
         // yoyoNode.setContentSize(cc.p(106, 146));
 
         // yoyoNode.runMyAction();
 
-        this.addChild(yoyoNode, 2);
+        this.addChild(yoyoSprite, 2);
 
         var earthSprite = new EarthSprite();
 
@@ -57,13 +57,13 @@ var PlayLayer = cc.Layer.extend({
                   cc.director.resume();
               }
               yoyo.yJump();
-          }, yoyoNode, controller);
+          }, yoyoSprite, controller);
 
           this.scheduleOnce(function(){
               if(controller.needPause) cc.director.pause();
           }, .7);
 
-          yoyoNode.runMyAction();
+          yoyoSprite.runMyAction();
 
           // var dot1 = new cc.DrawNode();
           // dot1.drawDot(yoyoHitDot, 5, cc.color(0,0,0,255));
@@ -98,11 +98,11 @@ var PlayLayer = cc.Layer.extend({
               //碰撞检测
 
               stone1HitDot = {x: CCX + Math.sin(radian1)*265, y: CCY + Math.cos(radian1)*265}
-              yoyoHitDot = yoyoNode.getPosition();
+              yoyoHitDot = yoyoSprite.getPosition();
               distanceYandS1 = cc.pDistance(yoyoHitDot, stone1HitDot);
               if(distanceYandS1 < 45 + 45){
                 cc.log("Hit!");
-                yoyoNode.runBlinkAction();
+                yoyoSprite.runBlinkAction();
               }
 
 

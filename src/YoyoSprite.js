@@ -1,5 +1,5 @@
 //定义yoyo节点
-var YoyoNode = cc.Sprite.extend({
+var YoyoSprite = cc.Sprite.extend({
 
   __canJump: true,
 
